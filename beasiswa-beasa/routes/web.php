@@ -44,7 +44,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('scholarship')->name('scholarship')->group(function () {
         Route::get('/{id}/signup', [ScholarshipController::class, 'signup'])->name('.signup');
     });
-
+        // File
+    Route::prefix('file')->name('file')->group(function () {
+        Route::get('/', [FileController::class, 'index'])->name('');
+        Route::get('/create', [FileController::class, 'create'])->name('.create');
+        Route::post('/create', [FileController::class, 'store'])->name('.create.process');
+        Route::post('/edit', [FileController::class, 'update'])->name('.edit.process');
+    });
     Route::middleware('campuss')->group(function () {
 
         // Scholarship
