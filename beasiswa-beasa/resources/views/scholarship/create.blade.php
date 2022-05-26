@@ -88,10 +88,14 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="">Link</label>
+                                <label for="">Website</label>
                                 <input type="text" class="form-control" name="link" id="" required>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Social Media</label>
+                                <input type="text" class="form-control" name="link2" id="" required>
                         <!-- Button -->
                         <div class="pl-lg-4">
                             <div class="row">
