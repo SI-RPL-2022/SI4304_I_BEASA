@@ -9,6 +9,8 @@
             <p class="card-text">Strata : {{ $scholarship->strata }}</p>
             <p class="card-text">Type : {{ $scholarship->type }}</p>
             <p class="card-text">{{ $scholarship->description }}</p>
+            <p>Website : <a href="{{ url($scholarship->link) }}" class="card-text">{{ $scholarship->link }}</a></p>
+            <p>Social Media : <a href="{{ url($scholarship->link2) }}" class="card-text">{{ $scholarship->link2 }}</a></p>
             <a href="{{ route('scholarship.signup', $scholarship->id) }}" class="btn btn-primary">Sign Up</a>
         </div>
     </section>
