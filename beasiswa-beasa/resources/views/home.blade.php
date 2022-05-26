@@ -99,7 +99,7 @@
             <div class="row">
                 @foreach ($scholarship as $sc)
                     <div class="col-3">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 15rem;">
                             <img class="card-img-top" src="{{ $sc->cover }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $sc->title }}</h5>
