@@ -54,6 +54,7 @@ class ScholarshipController extends Controller
             'description' => 'required',
             'cover' => 'required',
             'link' => 'required',
+            'link2' => 'required',
         ]);
 
         $scholarship = new Scholarship();
@@ -70,6 +71,7 @@ class ScholarshipController extends Controller
         $image->move(public_path('/images'), $image_name);
         $scholarship->cover = "/images/" . $image_name;
         $scholarship->link = $request->link;
+        $scholarship->link2 = $request->link2;
         $scholarship->save();
 
         return redirect()->route('scholarship')->with('success', 'Data added successfully');
