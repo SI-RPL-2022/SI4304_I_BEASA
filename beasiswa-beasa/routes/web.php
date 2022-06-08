@@ -22,6 +22,7 @@ Route::get('/', function (Request $request) {
     return view('home', compact('scholarship'));
 })->name('home');
 
+
 Route::get('/search', function (Request $request) {
     $scholarship = Scholarship::when($request->domicile, function ($query, $domicile) {
         return $query->where('domicile', $domicile);
@@ -40,17 +41,31 @@ Route::get('/detail/{id}', function ($id) {
     return view('detail', compact('scholarship'));
 })->name('detail');
 
+Route::get('post', 'App\Http\Controllers\FeedbackController@index')->name('post');
 Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('scholarship')->name('scholarship')->group(function () {
-        Route::get('/{id}/signup', [ScholarshipController::class, 'signup'])->name('.signup');
-    });
-        // File
+
+    // File
     Route::prefix('file')->name('file')->group(function () {
         Route::get('/', [FileController::class, 'index'])->name('');
         Route::get('/create', [FileController::class, 'create'])->name('.create');
         Route::post('/create', [FileController::class, 'store'])->name('.create.process');
         Route::post('/edit', [FileController::class, 'update'])->name('.edit.process');
     });
+    
+    Route::prefix('feedback')->name('feedback')->group(function () {
+        return view('detail');
+    });
+
+    // My Scholarship
+    Route::prefix('my')->name('my')->group(function () {
+        Route::get('/', [UserScholarshipController::class, 'index'])->name('');
+        Route::get('/{id}/delete', [UserScholarshipController::class, 'destroy'])->name('.destroy');
+    });
+
+    Route::prefix('scholarship')->name('scholarship')->group(function () {
+        Route::get('/{id}/signup', [ScholarshipController::class, 'signup'])->name('.signup');
+    });
+
     Route::middleware('campuss')->group(function () {
 
         // Scholarship
@@ -58,7 +73,14 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [ScholarshipController::class, 'index'])->name('');
             Route::get('/create', [ScholarshipController::class, 'create'])->name('.create');
             Route::post('/create', [ScholarshipController::class, 'store'])->name('.create.process');
+            Route::get('/{id}/edit', [ScholarshipController::class, 'edit'])->name('.edit');
+            Route::post('/{id}/edit', [ScholarshipController::class, 'update'])->name('.edit.process');
+            Route::get('/{id}/delete', [ScholarshipController::class, 'destroy'])->name('.destroy');
 
+            Route::get('/{id}/registrant', [ScholarshipController::class, 'registrant'])->name('.registrant');
+            Route::get('/{id}/registrant/{id_registrant}', [ScholarshipController::class, 'registrant_detail'])->name('.registrant.detail');
+            Route::get('/{id}/registrant/{id_registrant}/accept', [ScholarshipController::class, 'registrant_accept'])->name('.registrant.detail.accept');
+            Route::get('/{id}/registrant/{id_registrant}/decline', [ScholarshipController::class, 'registrant_decline'])->name('.registrant.detail.decline');
         });
     });
 });

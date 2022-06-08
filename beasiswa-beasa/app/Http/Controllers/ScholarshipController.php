@@ -48,6 +48,7 @@ class ScholarshipController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'campus' => 'required,',
             'domicile' => 'required',
             'strata' => 'required',
             'type' => 'required',
@@ -118,11 +119,14 @@ class ScholarshipController extends Controller
 
         $request->validate([
             'title' => 'required',
+            'campus' => 'required,',
             'domicile' => 'required',
             'strata' => 'required',
             'type' => 'required',
             'description' => 'required',
+            'cover' => 'required',
             'link' => 'required',
+            'link2' => 'required',
         ]);
 
 
@@ -135,6 +139,7 @@ class ScholarshipController extends Controller
             $scholarship->type = $request->type;
             $scholarship->description = $request->description;
             $scholarship->link = $request->link;
+            $scholarship->link2 = $request->link2;
 
             // Upload Image
             if (isset($request->cover)) {

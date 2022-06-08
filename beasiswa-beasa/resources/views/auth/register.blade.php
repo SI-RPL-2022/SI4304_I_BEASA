@@ -1,11 +1,7 @@
 <x-guest-layout>
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="index.html"><img style="display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    height: 150px;
-                    width: 150px; "  src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+            <a href="index.html"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Sign Up</h1>
         <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
@@ -52,7 +48,7 @@
                     </x-jet-label>
                 </div>
             @endif
-            <button class="btn btn-secondary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
         </form>
         <div class="text-center mt-5 text-lg fs-4">
             <p class='text-gray-600'>Already have an account? <a href="{{ route('login') }}"

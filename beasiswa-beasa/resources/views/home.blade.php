@@ -1,4 +1,5 @@
 <x-app-layout>
+<head><title>Bea|Sa</title></head>
     <x-slot name="header">
         <form action="{{ route('search') }}" method="get">
             <div class="row">
@@ -105,6 +106,7 @@
                                 <h5 class="card-title">{{ $sc->title }}</h5>
                                 <p class="card-text">{{ substr($sc->description, 0, 200) }}</p>
                                 <a href="{{ route('detail', $sc->id) }}" class="btn btn-primary">Detail</a>
+                                
                             </div>
                         </div>
                     </div>

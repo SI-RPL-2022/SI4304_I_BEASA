@@ -2,8 +2,8 @@
     <x-slot name="header">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Scholarship</h3>
-                <p class="text-subtitle text-muted">CRUD Scholarship</p>
+                <h3>Registrant</h3>
+                <p class="text-subtitle text-muted">All registrant signed this scholarship</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -37,26 +37,30 @@
         <div class="card">
             <div class="card-header">
                 {{-- <h4 class="card-title">Example Content</h4> --}}
-                <a href="{{ route('scholarship.create') }}" class="btn btn-primary">New</a>
             </div>
             <div class="card-body">
                 <table class="table">
                     <tr>
                         <th>No</th>
-                        <th>Title</th>
-                        <th>Domicile</th>
-                        <th>Strata</th>
-                        <th>Type</th>
+                        <th>Name</th>
+                        <th>E-mail</th>
+                        <th>Phone Number</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
-                    @if (count($scholarship) > 0)
+                    @if (count($registrant) > 0)
                         <?php $count = 1; ?>
-                        @foreach ($scholarship as $sc)
+                        @foreach ($registrant as $sc)
                             <tr>
                                 <td>{{ $count++ }}</td>
-                                <td>{{ $sc->title }}</td>
-                                <td>{{ $sc->domicile }}</td>
-                                <td>{{ $sc->strata }}</td>
-                                <td>{{ $sc->type }}</td>
+                                <td>{{ $sc->name }}</td>
+                                <td>{{ $sc->email }}</td>
+                                <td>{{ $sc->phone_number }}</td>
+                                <td>{{ $sc->status }}</td>
+                                <td>
+                                    <a href="{{ route('scholarship.registrant.detail', [$scholarship_id, $sc->id]) }}"
+                                        class="btn btn-success">Detail</a>
+                                </td>
                             </tr>
                         @endforeach
                     @else
