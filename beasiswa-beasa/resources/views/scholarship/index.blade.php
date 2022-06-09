@@ -58,7 +58,8 @@
                                 <td>{{ $sc->strata }}</td>
                                 <td>{{ $sc->type }}</td>
                                 <td>
-                                
+                                <a href="{{ route('scholarship.registrant', $sc->id) }}"
+                                        class="btn btn-success">Registrants</a>
                                 <a href="{{ route('scholarship.edit', $sc->id) }}"
                                         class="btn btn-warning">Edit</a>
                                 
