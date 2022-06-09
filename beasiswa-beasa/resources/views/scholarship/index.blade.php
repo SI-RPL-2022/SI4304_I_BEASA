@@ -57,6 +57,12 @@
                                 <td>{{ $sc->domicile }}</td>
                                 <td>{{ $sc->strata }}</td>
                                 <td>{{ $sc->type }}</td>
+                                <td>
+                                
+                                <a href="{{ route('scholarship.edit', $sc->id) }}"
+                                        class="btn btn-warning">Edit</a>
+                                
+                                </td>
                             </tr>
                         @endforeach
                     @else
