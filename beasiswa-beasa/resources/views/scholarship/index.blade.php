@@ -62,7 +62,8 @@
                                         class="btn btn-success">Registrants</a>
                                 <a href="{{ route('scholarship.edit', $sc->id) }}"
                                         class="btn btn-warning">Edit</a>
-                                
+                                <a href="{{ route('scholarship.destroy', $sc->id) }}" class="btn btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
