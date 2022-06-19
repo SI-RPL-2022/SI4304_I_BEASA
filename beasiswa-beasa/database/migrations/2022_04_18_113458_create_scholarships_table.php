@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('scholarships', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_country');
             $table->string('title');
             $table->string('cover');
             $table->text('description');
             $table->string('link');
-            $table->string('domicile');
+            $table->string('link2');
             $table->string('strata');
             $table->string('type');
             $table->timestamps();
@@ -28,6 +29,12 @@ return new class extends Migration
             $table->foreign('id_user')
                 ->references('id')
                 ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('id_country')
+                ->references('id')
+                ->on('countries')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
