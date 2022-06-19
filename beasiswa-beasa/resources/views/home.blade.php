@@ -18,17 +18,16 @@
             <div class="row">
                 <div class="col-2">
                     <div class="form-group">
-                        <select class="form-control" id="" name="domicile">
-                            <option value="">-- Select Domicile --</option>
-                            @if (isset($_GET['domicile']))
-                                <option value="Nasional" {{ $_GET['domicile'] == 'Nasional' ? 'selected' : '' }}>
-                                    Nasional</option>
-                                <option value="Internasional"
-                                    {{ $_GET['domicile'] == 'Internasional' ? 'selected' : '' }}>Internasional
-                                </option>
+                        <select class="form-control" id="" name="id_country">
+                            <option value="">-- Select Country --</option>
+                            @if (isset($_GET['id_country']))
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" {{ $country->id == $_GET['id_country'] ? 'selected' : '' }}>{{ $country->name }}</option>
+                                @endforeach
                             @else
-                                <option value="Nasional">Nasional</option>
-                                <option value="Internasional">Internasional</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
                             @endif
                         </select>
                     </div>
@@ -106,7 +105,7 @@
                                 <h5 class="card-title">{{ $sc->title }}</h5>
                                 <p class="card-text">{{ substr($sc->description, 0, 200) }}</p>
                                 <a href="{{ route('detail', $sc->id) }}" class="btn btn-primary">Detail</a>
-                                
+
                             </div>
                         </div>
                     </div>
