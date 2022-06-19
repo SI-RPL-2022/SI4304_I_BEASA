@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('feedback', function (Blueprint $table) {
+       Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('rate');
             $table->text('feedback');
             $table->timestamps();
 
