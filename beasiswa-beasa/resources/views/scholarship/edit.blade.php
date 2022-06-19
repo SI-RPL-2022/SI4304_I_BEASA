@@ -47,15 +47,15 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="">Domicile</label>
-                                <select name="domicile" id="" class="form-control" required>
-                                    <option value="">-- Select Domicile --</option>
-                                    <option value="Nasional"
-                                        {{ $scholarship->domicile == 'Nasional' ? 'selected' : '' }}>Nasional
-                                    </option>
-                                    <option value="Internasional"
-                                        {{ $scholarship->domicile == 'Internasional' ? 'selected' : '' }}>
-                                        Internasional</option>
+                                <label for="">Country</label>
+                                <select name="id_country" id="" class="form-control" required>
+                                    <option value="">-- Select Country --</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}"
+                                            {{ $scholarship->id_country == $country->id ? 'selected' : '' }}>
+                                            {{ $country->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
