@@ -41,7 +41,11 @@ Route::get('/detail/{id}', function ($id) {
     return view('detail', compact('scholarship'));
 })->name('detail');
 
-Route::get('post', 'App\Http\Controllers\FeedbackController@index')->name('post');
+Route::prefix('feedback')->name('feedback')->group(function () {
+    Route::get('/', [FeedbackController::class, 'index'])->name('');
+    Route::post('/create', [FeedbackController::class, 'store'])->name('.post');
+});
+
 Route::middleware('auth:sanctum')->group(function () {
 
     // File
@@ -52,10 +56,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/edit', [FileController::class, 'update'])->name('.edit.process');
     });
     
-    Route::prefix('feedback')->name('feedback')->group(function () {
-        return view('detail');
-    });
-
     // My Scholarship
     Route::prefix('my')->name('my')->group(function () {
         Route::get('/', [UserScholarshipController::class, 'index'])->name('');
