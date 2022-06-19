@@ -43,7 +43,7 @@
                     <tr>
                         <th>No</th>
                         <th>Title</th>
-                        <th>Domicile</th>
+                        <th>Country</th>
                         <th>Strata</th>
                         <th>Type</th>
                         <th>Status</th>
@@ -55,7 +55,7 @@
                             <tr>
                                 <td>{{ $count++ }}</td>
                                 <td>{{ $sc->title }}</td>
-                                <td>{{ $sc->domicile }}</td>
+                                <td>{{ \App\Models\Country::find($sc->id_country)->name }}</td>
                                 <td>{{ $sc->strata }}</td>
                                 <td>{{ $sc->type }}</td>
                                 <td>{{ $sc->status }}</td>
