@@ -5,7 +5,7 @@
     <section class="section mt-4">
         <div class="row">
             <h5 class="card-title">{{ $scholarship->title }}</h5>
-            <p class="card-text">Domicile :{{ $scholarship->domicile }}</p>
+            <p class="card-text">Country :{{ \App\Models\Country::find($scholarship->id_country)->name }}</p>
             <p class="card-text">Strata : {{ $scholarship->strata }}</p>
             <p class="card-text">Type : {{ $scholarship->type }}</p>
             <p class="card-text">{{ $scholarship->description }}</p>
