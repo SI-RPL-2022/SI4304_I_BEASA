@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Models\Country;
 
 class ScholarshipController extends Controller
 {
@@ -35,7 +36,8 @@ class ScholarshipController extends Controller
      */
     public function create()
     {
-        return view('scholarship.create');
+        $countries = Country::all();
+        return view('scholarship.create', compact('countries'));
     }
 
     /**
@@ -49,7 +51,7 @@ class ScholarshipController extends Controller
         $request->validate([
             'title' => 'required',
             'campus' => 'required,',
-            'domicile' => 'required',
+            'id_country' => 'required',
             'strata' => 'required',
             'type' => 'required',
             'description' => 'required',
@@ -61,7 +63,7 @@ class ScholarshipController extends Controller
         $scholarship = new Scholarship();
         $scholarship->id_user = Auth::user()->id;
         $scholarship->title = $request->title;
-        $scholarship->domicile = $request->domicile;
+        $scholarship->id_country = $request->id_country;
         $scholarship->strata = $request->strata;
         $scholarship->type = $request->type;
         $scholarship->description = $request->description;
@@ -97,11 +99,12 @@ class ScholarshipController extends Controller
      */
     public function edit($scholarship_id)
     {
+        $countries = Country::all();
         $scholarship = Scholarship::find($scholarship_id);
         if (Auth::user()->role == 'admin') {
-            return view('scholarship.edit', compact('scholarship'));
+            return view('scholarship.edit', compact('scholarship', 'countries'));
         } elseif ($scholarship->id_user == Auth::user()->id) {
-            return view('scholarship.edit', compact('scholarship'));
+            return view('scholarship.edit', compact('scholarship', 'countries'));
         } else {
             return redirect()->route('scholarship')->withErrors(['msg' => "You're not the owner of this !"]);
         }
@@ -120,7 +123,7 @@ class ScholarshipController extends Controller
         $request->validate([
             'title' => 'required',
             'campus' => 'required,',
-            'domicile' => 'required',
+            'id_country' => 'required',
             'strata' => 'required',
             'type' => 'required',
             'description' => 'required',
@@ -134,7 +137,7 @@ class ScholarshipController extends Controller
 
         if (Auth::user()->role == 'admin' || $scholarship->id_user == Auth::user()->id) {
             $scholarship->title = $request->title;
-            $scholarship->domicile = $request->domicile;
+            $scholarship->id_country = $request->id_country;
             $scholarship->strata = $request->strata;
             $scholarship->type = $request->type;
             $scholarship->description = $request->description;
@@ -210,7 +213,7 @@ class ScholarshipController extends Controller
     {
         $file = FileModel::where('id_user', $user_id)->first();
         $user = User::find($user_id);
-        return view('scholarship.detail', compact('file','scholarship_id', 'user_id','user'));
+        return view('scholarship.detail', compact('file', 'scholarship_id', 'user_id', 'user'));
     }
 
     /**
@@ -224,7 +227,7 @@ class ScholarshipController extends Controller
         $userScholarship->status = 'accepted';
         $userScholarship->save();
 
-        return redirect()->route('scholarship.registrant',$scholarship_id)->with('success', 'Registrant accepted successfully');
+        return redirect()->route('scholarship.registrant', $scholarship_id)->with('success', 'Registrant accepted successfully');
     }
 
     /**
@@ -238,6 +241,6 @@ class ScholarshipController extends Controller
         $userScholarship->status = 'declined';
         $userScholarship->save();
 
-        return redirect()->route('scholarship.registrant',$scholarship_id)->with('success', 'Registrant declined successfully');
+        return redirect()->route('scholarship.registrant', $scholarship_id)->with('success', 'Registrant declined successfully');
     }
 }
