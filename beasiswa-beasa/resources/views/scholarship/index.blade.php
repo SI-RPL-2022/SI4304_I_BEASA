@@ -34,7 +34,7 @@
             </div>
         @endif
 
-        <div class="card">
+        div class="card">
             <div class="card-header">
                 {{-- <h4 class="card-title">Example Content</h4> --}}
                 <a href="{{ route('scholarship.create') }}" class="btn btn-primary">New</a>
@@ -44,7 +44,7 @@
                     <tr>
                         <th>No</th>
                         <th>Title</th>
-                        <th>Domicile</th>
+                        <th>Country</th>
                         <th>Strata</th>
                         <th>Type</th>
                     </tr>
@@ -54,17 +54,9 @@
                             <tr>
                                 <td>{{ $count++ }}</td>
                                 <td>{{ $sc->title }}</td>
-                                <td>{{ $sc->domicile }}</td>
+                                <td>{{ \App\Models\Country::find($sc->id_country)->name }}</td>
                                 <td>{{ $sc->strata }}</td>
                                 <td>{{ $sc->type }}</td>
-                                <td>
-                                <a href="{{ route('scholarship.registrant', $sc->id) }}"
-                                        class="btn btn-success">Registrants</a>
-                                <a href="{{ route('scholarship.edit', $sc->id) }}"
-                                        class="btn btn-warning">Edit</a>
-                                <a href="{{ route('scholarship.destroy', $sc->id) }}" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete this item')">Delete</a>
-                                </td>
                             </tr>
                         @endforeach
                     @else
