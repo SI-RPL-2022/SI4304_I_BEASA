@@ -10,7 +10,6 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        return view('feedback.view');
         $feedbacks = Feedback::all();
         return view('feedback.view', compact('feedbacks'));
     }

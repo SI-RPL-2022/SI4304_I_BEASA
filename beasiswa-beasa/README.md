@@ -6,7 +6,7 @@ Aplikasi ini memberikan informasi tentang beasiswa yang ada di indonesia maupun 
 ## Installation :
 
 1. composer install
-2. cp .env.example .env
+2. copy .env.example .env
 3. make database "beasa" on local
 4. change "laravel" to "beasa" on .env (DB_DATABASE)
 5. php artisan key:generate
@@ -14,5 +14,3 @@ Aplikasi ini memberikan informasi tentang beasiswa yang ada di indonesia maupun 
 7. php artisan db:seed
 8. php artisan storage:link
 9. php artisan serve  
-
-Notes : make sure XAMPP -> Apache & MySQL Active before step 4.

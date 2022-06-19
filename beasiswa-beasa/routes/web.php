@@ -1,11 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ScholarshipController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\UserScholarshipController;
-use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+use App\Models\Scholarship;
+
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\UserScholarshipController;
+use App\Http\Controllers\FeedbackController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,13 +23,17 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
     $scholarship = Scholarship::all();
-    return view('home', compact('scholarship'));
+    // get coutries
+    $countries = \App\Models\Country::all();
+    return view('home', compact('scholarship', 'countries'));
 })->name('home');
 
 
 Route::get('/search', function (Request $request) {
-    $scholarship = Scholarship::when($request->domicile, function ($query, $domicile) {
-        return $query->where('domicile', $domicile);
+    // get coutries
+    $countries = \App\Models\Country::all();
+    $scholarship = Scholarship::when($request->id_country, function ($query, $id_country) {
+        return $query->where('id_country', $id_country);
     })->when($request->strata, function ($query, $strata) {
         return $query->where('strata', $strata);
     })->when($request->type, function ($query, $type) {
@@ -33,14 +41,14 @@ Route::get('/search', function (Request $request) {
     })->when($request->search, function ($query, $search) {
         return $query->where('title', 'LIKE', '%' . $search . '%');
     })->get();
-    return view('home', compact('scholarship'));
+    return view('home', compact('scholarship', 'countries'));
 })->name('search');
 
 Route::get('/detail/{id}', function ($id) {
     $scholarship = Scholarship::find($id);
     return view('detail', compact('scholarship'));
 })->name('detail');
-
+// File
 Route::prefix('feedback')->name('feedback')->group(function () {
     Route::get('/', [FeedbackController::class, 'index'])->name('');
     Route::post('/create', [FeedbackController::class, 'store'])->name('.post');
@@ -55,7 +63,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/create', [FileController::class, 'store'])->name('.create.process');
         Route::post('/edit', [FileController::class, 'update'])->name('.edit.process');
     });
-    
+
+    // Route::prefix('feedback')->name('feedback')->group(function () {
+    //     return view('detail');
+    // });
+
     // My Scholarship
     Route::prefix('my')->name('my')->group(function () {
         Route::get('/', [UserScholarshipController::class, 'index'])->name('');
